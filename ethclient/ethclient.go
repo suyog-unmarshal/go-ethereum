@@ -283,6 +283,11 @@ func (ec *Client) TransactionReceipt(ctx context.Context, txHash common.Hash) (*
 	}
 	return r, err
 }
+func (ec *Client) BlockReceipts(ctx context.Context, number *big.Int) (types.Receipts, error) {
+	var result types.Receipts
+	err := ec.c.CallContext(ctx, &result, "eth_getBlockReceipts", toBlockNumArg(number))
+	return result, err
+}
 
 type rpcProgress struct {
 	StartingBlock hexutil.Uint64
